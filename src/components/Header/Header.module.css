@@ -1,0 +1,20 @@
+.header {
+  padding: 20px;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  font-weight: bold;
+}
+
+.menuWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menuElement {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+}

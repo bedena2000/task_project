@@ -1,0 +1,10 @@
+.mainPage {
+  background: rgb(105, 6, 106);
+  background: linear-gradient(
+    180deg,
+    rgba(105, 6, 106, 1) 0%,
+    rgba(29, 120, 187, 0.5858718487394958) 100%
+  );
+  min-height: 100vh;
+  padding: 20px;
+}

@@ -1,0 +1,15 @@
+.photoListWrapper {
+  margin-top: 26px;
+}
+
+.photoListWrapper > h2 {
+  color: white;
+}
+
+.imageWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 40px;
+  gap: 20px;
+  overflow: hidden;
+}

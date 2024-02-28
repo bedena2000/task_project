@@ -1,0 +1,89 @@
+.modalWrapper {
+  position: fixed;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 26px;
+  width: 600px;
+  /* height: 400px; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 16px;
+}
+
+.modalClose {
+  display: flex;
+  justify-content: end;
+}
+
+.modalClose > svg {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modalClose > svg:hover {
+  transform: scale(1.1);
+}
+
+.pictureWrapper {
+  width: 100%;
+  height: 300px;
+  margin-top: 20px;
+  border: 4px solid brown;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.pictureWrapper > img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.pictureTitle {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.pictureSettings {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.pictureViews {
+  display: flex;
+  align-items: center;
+  background-color: rgb(47, 40, 40);
+  padding: 8px 22px;
+  gap: 16px;
+}
+
+.pictureViews > p {
+  color: white;
+  font-weight: bold;
+}
+
+.pictureViews > svg {
+}
+
+.pictureDownload {
+  display: flex;
+  align-items: center;
+  background-color: rgb(47, 40, 40);
+  padding: 8px 22px;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.pictureDownload:hover {
+  background-color: rgb(84, 74, 74);
+}
+
+.pictureDownload > p {
+  color: white;
+  font-weight: bold;
+}

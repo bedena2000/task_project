@@ -45,6 +45,7 @@ export const PhotoList = () => {
           ? photoList.map((item) => {
               return (
                 <PhotoItem
+                  key={item.id}
                   alt_description={item.alt_description}
                   created_at={item.created_at}
                   id={item.id}

@@ -1,6 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from "./PhotoItem.module.css";
 import { PhotoElement } from "./PhotoItemTypes";
+// Context
+import { useContext } from "react";
+import { MainAppContext } from "../../context";
 
 export const PhotoItem: FC<PhotoElement> = ({
   alt_description,
@@ -9,10 +12,26 @@ export const PhotoItem: FC<PhotoElement> = ({
   likes,
   picturePath,
 }) => {
+  const [isHover, setIsHover] = useState(false);
+  const currentContext = useContext(MainAppContext);
+  console.log(currentContext);
+  const handlePicture = () => {
+    currentContext.changeCurrentPicture(id);
+    currentContext.changeCurrentModal();
+  };
+
   return (
-    <div className={`${styles["photoItem"]}`}>
+    <div
+      onMouseMove={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      onClick={handlePicture}
+      className={`${styles["photoItem"]}`}
+    >
       <img alt="mainPhoto" src={picturePath} />
-      <p>{alt_description}</p>
+
+      {isHover && (
+        <div className={`${styles["pictureInfo"]}`}>{alt_description}</div>
+      )}
     </div>
   );
 };

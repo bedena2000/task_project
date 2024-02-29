@@ -1,0 +1,13 @@
+.scrollUp {
+  border-radius: 12px;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  z-index: 4;
+  cursor: pointer;
+}

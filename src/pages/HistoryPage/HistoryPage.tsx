@@ -4,6 +4,7 @@ import { menuItems } from "../../helpers";
 import styles from "./HistoryPage.module.css";
 
 function HistoryPage() {
+  
   return (
     <div className={`${styles["historyPage"]}`}>
       <div className="main-container">

@@ -19,34 +19,31 @@ export interface PhotoElementState {
 export const PhotoList = () => {
   const currentContext = useContext(MainAppContext);
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
+  const [searchList, setSearchList] = useState<PhotoElementState[] | []>([]);
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
   const [perPage, setPerPage] = useState(20);
   const [orderBy, setOrderBy] = useState("popular");
   const { isEnd } = useDetectEnd();
 
   useEffect(() => {
-    console.log("re render happened");
-    if (currentContext.searchValue === "") {
-      console.log("entered this area");
+    if (currentContext.searchValue === "" && currentContext.keyword === "") {
       const fetchPhotos = async () => {
-        setIsLoading(true);
         const accessKey = import.meta.env.VITE_ACCESS_KEY as string;
         const finalUrl = `${baseApiRoute}/photos/?client_id=${accessKey}&page=${page}&per_page=${perPage}&order_by=${orderBy}`;
         const result = await fetch(finalUrl);
         const finalResult = await result.json();
         setPhotoList((prevState) => [...prevState, ...finalResult]);
-        setIsLoading(false);
       };
       fetchPhotos();
-    } else {
-      const foundArray = currentContext.history.keywords.find(
-        (item) => item.name === currentContext.searchValue
-      );
-      if (foundArray && foundArray.content.length > 0) {
-        setPhotoList((prevState) => foundArray.content);
-      } else {
-        setPhotoList((prevState) => []);
+    } else if (
+      currentContext.searchValue.length > 0 &&
+      currentContext.keyword === ""
+    ) {
+      const filteredArray = currentContext.history.keywords.find((item) => {
+        return item.name === currentContext.searchValue;
+      })?.content;
+      if (filteredArray && filteredArray.length > 0) {
+        setSearchList(filteredArray);
       }
     }
   }, [page, currentContext.searchValue]);
@@ -54,7 +51,6 @@ export const PhotoList = () => {
   // Clear
   const handleClear = () => {
     currentContext.changeSearchValue("");
-    setPhotoList([]);
   };
 
   useEffect(() => {
@@ -63,6 +59,8 @@ export const PhotoList = () => {
     }
   }, [isEnd]);
 
+  console.log(currentContext);
+
   return (
     <div className={`${styles["photoListWrapper"]}`}>
       {page > 1 ? <ScrollUp /> : null}
@@ -70,27 +68,40 @@ export const PhotoList = () => {
         გასუფთავება
       </button>
       <div className={`${styles["imageWrapper"]}`}>
-        {photoList
-          ? photoList.map((item) => {
-              const uniqueKey = Math.random();
+        {currentContext.searchValue === "" ? (
+          photoList.map((item) => {
+            const uniqueKey = Math.random();
 
-              return (
-                <PhotoItem
-                  key={`${uniqueKey} - ${item.urls.regular}`}
-                  alt_description={item.alt_description}
-                  created_at={item.created_at}
-                  id={item.id}
-                  likes={item.likes}
-                  picturePath={item.urls.regular}
-                />
-              );
-            })
-          : null}
-        {photoList.length === 0 ? (
+            return (
+              <PhotoItem
+                key={`${uniqueKey} - ${item.urls.regular}`}
+                alt_description={item.alt_description}
+                created_at={item.created_at}
+                id={item.id}
+                likes={item.likes}
+                picturePath={item.urls.regular}
+              />
+            );
+          })
+        ) : searchList.length > 0 ? (
+          searchList.map((item) => {
+            const uniqueKey = Math.random();
+            return (
+              <PhotoItem
+                key={`${uniqueKey} - ${item.urls.regular}`}
+                alt_description={item.alt_description}
+                created_at={item.created_at}
+                id={item.id}
+                likes={item.likes}
+                picturePath={item.urls.regular}
+              />
+            );
+          })
+        ) : (
           <h2 className={`${styles["ErrorMessage"]}`}>
             😓 სურათები ვერ მოიძებნა, სცადეთ სხვა სახელი ან დაარეფრეშეთ გვერდი
           </h2>
-        ) : null}
+        )}
       </div>
     </div>
   );

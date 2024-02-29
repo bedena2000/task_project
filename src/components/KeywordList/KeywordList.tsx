@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./KeywordList.module.css";
 import { MainAppContext } from "../../context";
 import { KeywordElement } from "../keywordsElement/KeywordElement";
+import { useDetectEnd } from "../../hooks/useDetectEnd";
 
 const KeywordList = () => {
+  const [renderCount, setRenderCount] = useState();
   const currentContext = useContext(MainAppContext);
+  const { isEnd } = useDetectEnd();
+
+  useEffect(() => {
+    currentContext.changeKeyword("");
+  }, []);
+
   return (
     <div className={`${styles["keywordPage"]}`}>
       {currentContext ? (

@@ -9,7 +9,7 @@ export const KeywordElement: FC<KeyWordProps> = ({ keywordString }) => {
   const navigate = useNavigate();
   console.log(keywordString);
   const handleKeyword = () => {
-    currentContext.changeSearchValue(keywordString);
+    currentContext.changeKeyword(keywordString);
     navigate("/");
   };
 

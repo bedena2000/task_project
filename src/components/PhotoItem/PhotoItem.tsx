@@ -14,7 +14,7 @@ export const PhotoItem: FC<PhotoElement> = ({
 }) => {
   const [isHover, setIsHover] = useState(false);
   const currentContext = useContext(MainAppContext);
-  console.log(currentContext);
+
   const handlePicture = () => {
     currentContext.changeCurrentPicture(id);
     currentContext.changeCurrentModal();

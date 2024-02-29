@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./PhotoList.module.css";
 import { baseApiRoute } from "../../helpers";
 import { PhotoItem } from "../PhotoItem/PhotoItem";
+import { MainAppContext } from "../../context";
 
 export interface PhotoElementState {
   alt_description: string;
@@ -14,6 +15,7 @@ export interface PhotoElementState {
 }
 
 export const PhotoList = () => {
+  const currentContext = useContext(MainAppContext);
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
   const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(20);
@@ -35,14 +37,21 @@ export const PhotoList = () => {
     };
 
     fetchPhotos();
-  }, [orderBy, page, perPage]);
+  }, [orderBy, page, perPage, currentContext.searchValue]);
+
+  console.log(currentContext);
+
+  const finalList = currentContext.searchValue
+    ? currentContext.history.keywords.find(
+        (item) => item.name === currentContext.searchValue
+      )?.content || []
+    : photoList;
 
   return (
     <div className={`${styles["photoListWrapper"]}`}>
-      <h2>List</h2>
       <div className={`${styles["imageWrapper"]}`}>
-        {photoList
-          ? photoList.map((item) => {
+        {finalList
+          ? finalList.map((item) => {
               return (
                 <PhotoItem
                   key={item.id}
@@ -55,6 +64,11 @@ export const PhotoList = () => {
               );
             })
           : null}
+        {finalList.length === 0 ? (
+          <h2 className={`${styles["ErrorMessage"]}`}>
+            😓 სურათი ვერ მოიძებნა, სცადეთ სხვა სახელი
+          </h2>
+        ) : null}
       </div>
     </div>
   );

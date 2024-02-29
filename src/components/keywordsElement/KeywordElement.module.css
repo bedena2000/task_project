@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+
+.keywordElement {
+  padding: 12px 24px;
+  border-radius: 16px;
+  background: rgb(120, 120, 180);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto", sans-serif;
+  transition: all .3s ease;
+}
+
+.keywordElement:hover {
+  background-color: rgb(96, 96, 124);
+}

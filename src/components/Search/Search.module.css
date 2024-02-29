@@ -1,0 +1,17 @@
+.searchBarWrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  margin-top: 26px;
+}
+
+.searchBar {
+  outline: none;
+  border: 4px solid blueviolet;
+  padding: 4px 8px;
+}
+
+.searchBarTitle {
+  font-weight: bold;
+  color: white;
+}

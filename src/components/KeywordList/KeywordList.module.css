@@ -1,0 +1,17 @@
+.keywordPage {
+  margin-top: 42px;
+}
+
+.keywordListWrapper {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.keywordTitle {
+  font-family: 'Roboto', sans-serif;
+  font-size: 42px;
+  font-weight: bold;
+  color: white;
+}

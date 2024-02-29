@@ -20,43 +20,49 @@ export const PhotoList = () => {
   const currentContext = useContext(MainAppContext);
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [perPage, setPerPage] = useState(20);
   const [orderBy, setOrderBy] = useState("popular");
   const { isEnd } = useDetectEnd();
 
   useEffect(() => {
-    const secretKey = import.meta.env.VITE_ACCESS_KEY as string;
-    const fetchPhotos = async () => {
-      const params = {
-        page: page,
-        per_page: perPage,
-        order_by: orderBy,
-        client_id: secretKey,
+    console.log("re render happened");
+    if (currentContext.searchValue === "") {
+      console.log("entered this area");
+      const fetchPhotos = async () => {
+        setIsLoading(true);
+        const accessKey = import.meta.env.VITE_ACCESS_KEY as string;
+        const finalUrl = `${baseApiRoute}/photos/?client_id=${accessKey}&page=${page}&per_page=${perPage}&order_by=${orderBy}`;
+        const result = await fetch(finalUrl);
+        const finalResult = await result.json();
+        setPhotoList((prevState) => [...prevState, ...finalResult]);
+        setIsLoading(false);
       };
-      const finalUrl = `${baseApiRoute}/photos/?page=${params.page}&per_page=${params.per_page}&order_by=${params.order_by}&client_id=${params.client_id}`;
-      const result = await fetch(finalUrl);
-      const photos = await result.json();
-      setPhotoList((prevState) => [...prevState, ...photos]);
-    };
+      fetchPhotos();
+    } else {
+      const foundArray = currentContext.history.keywords.find(
+        (item) => item.name === currentContext.searchValue
+      );
+      if (foundArray && foundArray.content.length > 0) {
+        setPhotoList((prevState) => foundArray.content);
+      } else {
+        setPhotoList((prevState) => []);
+      }
+    }
+  }, [page, currentContext.searchValue]);
 
-    fetchPhotos();
-  }, [orderBy, page, perPage, currentContext.searchValue]);
+  // Clear
+  const handleClear = () => {
+    currentContext.changeSearchValue("");
+    setPhotoList([]);
+  };
 
   useEffect(() => {
     if (isEnd && currentContext.searchValue === "") {
-      console.log("entered end");
       setPage((prevState) => prevState + 1);
     }
-  }, [isEnd, currentContext.searchValue]);
-  console.log(currentContext);
-  const finalList = currentContext.searchValue
-    ? currentContext.history.keywords.find(
-        (item) => item.name === currentContext.searchValue
-      )?.content || []
-    : photoList;
-  const handleClear = () => {
-    currentContext.changeSearchValue("");
-  };
+  }, [isEnd]);
+
   return (
     <div className={`${styles["photoListWrapper"]}`}>
       {page > 1 ? <ScrollUp /> : null}
@@ -64,11 +70,13 @@ export const PhotoList = () => {
         გასუფთავება
       </button>
       <div className={`${styles["imageWrapper"]}`}>
-        {finalList
-          ? finalList.map((item) => {
+        {photoList
+          ? photoList.map((item) => {
+              const uniqueKey = Math.random();
+
               return (
                 <PhotoItem
-                  key={item.id}
+                  key={`${uniqueKey} - ${item.urls.regular}`}
                   alt_description={item.alt_description}
                   created_at={item.created_at}
                   id={item.id}
@@ -78,9 +86,9 @@ export const PhotoList = () => {
               );
             })
           : null}
-        {finalList.length === 0 ? (
+        {photoList.length === 0 ? (
           <h2 className={`${styles["ErrorMessage"]}`}>
-            😓 სურათი ვერ მოიძებნა, სცადეთ სხვა სახელი
+            😓 სურათები ვერ მოიძებნა, სცადეთ სხვა სახელი ან დაარეფრეშეთ გვერდი
           </h2>
         ) : null}
       </div>

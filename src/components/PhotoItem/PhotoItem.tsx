@@ -20,6 +20,12 @@ export const PhotoItem: FC<PhotoElement> = ({
     currentContext.changeCurrentModal();
   };
 
+  if(!picturePath) {
+    return <div>
+      Loading...
+    </div>
+  }
+
   return (
     <div
       onMouseMove={() => setIsHover(true)}

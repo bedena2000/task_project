@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const KeywordElement: FC<KeyWordProps> = ({ keywordString }) => {
   const currentContext = useContext(MainAppContext);
   const navigate = useNavigate();
+  console.log(keywordString);
   const handleKeyword = () => {
     currentContext.changeSearchValue(keywordString);
     navigate("/");

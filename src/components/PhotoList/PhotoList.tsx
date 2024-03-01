@@ -18,7 +18,6 @@ export interface PhotoElementState {
 
 export const PhotoList = () => {
   const currentContext = useContext(MainAppContext);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
   const [searchList, setSearchList] = useState<PhotoElementState[] | []>([]);
   const [page, setPage] = useState(1);

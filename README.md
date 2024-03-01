@@ -1,5 +1,7 @@
 Image Gallery App
 
+[DEMO][https://images-task-app.netlify.app/]
+
 ![ProjectImage](./src/assets/img/homePage.png)
 
 Used Tools:
@@ -17,6 +19,3 @@ Description:
 
 🏡HomePage -> find top images, by string query
 ⌚HistoryPage -> look every keyword you have entered
-
-
-

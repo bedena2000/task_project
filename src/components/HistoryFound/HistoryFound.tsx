@@ -7,30 +7,58 @@ import { MainAppContext } from "../../context";
 import { PhotoElementState } from "../PhotoList/PhotoList";
 import { PhotoItem } from "../PhotoItem/PhotoItem";
 import { useDetectEnd } from "../../hooks/useDetectEnd";
+import { Background } from "../../components/Background/Background";
+import { Modal } from "../../components/Modal/Modal";
 
 const HistoryFound = () => {
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
   const currentContext = useContext(MainAppContext);
+  const [elementsToRender, setElementsToRender] = useState(4);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const keywordName = params.get("keywordName");
   const { isEnd } = useDetectEnd();
-  console.log(isEnd);
+
   useEffect(() => {
     if (keywordName && keywordName.length > 0) {
       const checkIfExist = currentContext.history.keywords.find((item) => {
         return item.name === keywordName;
       })?.content;
+      const finalArray: PhotoElementState[] = [];
       if (checkIfExist && checkIfExist?.length > 0) {
-        setPhotoList(checkIfExist);
+        for (let i = 0; i < elementsToRender; i++) {
+          if (checkIfExist[i]) {
+            finalArray.push(checkIfExist[i]);
+          }
+        }
       }
+      setPhotoList(finalArray);
     }
   }, []);
 
-  console.log(photoList);
+  useEffect(() => {
+    if (isEnd) {
+      if (keywordName && keywordName.length > 0) {
+        const checkIfExist = currentContext.history.keywords.find((item) => {
+          return item.name === keywordName;
+        })?.content;
+        const finalArray: PhotoElementState[] = photoList;
+        for (let i = elementsToRender; i < elementsToRender + 2; i++) {
+          if (checkIfExist && checkIfExist[i]) {
+            finalArray.push(checkIfExist[i]);
+          }
+        }
+        setPhotoList(finalArray);
+        setElementsToRender(prevState => prevState + 2);
+      }
+    }
+  }, [isEnd]);
 
+  console.log(currentContext);
   return (
     <div className={`${styles["historyFoundWrapper"]}`}>
+      {currentContext.isModal && <Background />}
+      {currentContext.isModal && <Modal />}
       <Link to={"/history"} className={`${styles["goBack"]}`}>
         <FaArrowAltCircleLeft />
         Keywords

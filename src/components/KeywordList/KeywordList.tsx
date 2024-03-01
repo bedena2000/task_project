@@ -3,15 +3,12 @@ import styles from "./KeywordList.module.css";
 import { MainAppContext } from "../../context";
 import { KeywordElement } from "../keywordsElement/KeywordElement";
 import { useDetectEnd } from "../../hooks/useDetectEnd";
+import { PhotoElementState } from "../PhotoList/PhotoList";
 
 const KeywordList = () => {
-  const [renderCount, setRenderCount] = useState();
   const currentContext = useContext(MainAppContext);
-  const { isEnd } = useDetectEnd();
 
-  useEffect(() => {
-    currentContext.changeKeyword("");
-  }, []);
+  console.log(currentContext);
 
   return (
     <div className={`${styles["keywordPage"]}`}>

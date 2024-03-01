@@ -21,29 +21,26 @@ export const PhotoList = () => {
   const [photoList, setPhotoList] = useState<PhotoElementState[] | []>([]);
   const [searchList, setSearchList] = useState<PhotoElementState[] | []>([]);
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(20);
-  const [orderBy, setOrderBy] = useState("popular");
   const { isEnd } = useDetectEnd();
 
   useEffect(() => {
-    if (currentContext.searchValue === "" && currentContext.keyword === "") {
+    if (currentContext.searchValue === "") {
       const fetchPhotos = async () => {
         const accessKey = import.meta.env.VITE_ACCESS_KEY as string;
-        const finalUrl = `${baseApiRoute}/photos/?client_id=${accessKey}&page=${page}&per_page=${perPage}&order_by=${orderBy}`;
+        const finalUrl = `${baseApiRoute}/photos/?client_id=${accessKey}&page=${page}&per_page=20&order_by=popular`;
         const result = await fetch(finalUrl);
         const finalResult = await result.json();
         setPhotoList((prevState) => [...prevState, ...finalResult]);
       };
       fetchPhotos();
-    } else if (
-      currentContext.searchValue.length > 0 &&
-      currentContext.keyword === ""
-    ) {
+    } else if (currentContext.searchValue.length > 0) {
       const filteredArray = currentContext.history.keywords.find((item) => {
         return item.name === currentContext.searchValue;
       })?.content;
       if (filteredArray && filteredArray.length > 0) {
         setSearchList(filteredArray);
+      } else {
+        setSearchList([]);
       }
     }
   }, [page, currentContext.searchValue]);
@@ -58,8 +55,6 @@ export const PhotoList = () => {
       setPage((prevState) => prevState + 1);
     }
   }, [isEnd]);
-
-  console.log(currentContext);
 
   return (
     <div className={`${styles["photoListWrapper"]}`}>

@@ -4,6 +4,8 @@ import MainPage from "./pages/MainPage/MainPage";
 import HistoryPage from "./pages/HistoryPage/HistoryPage";
 // Context
 import { MainContextProvider } from "./context";
+import HistoryFound from "./components/HistoryFound/HistoryFound";
+import KeywordList from "./components/KeywordList/KeywordList";
 
 export default function App() {
   return (
@@ -12,7 +14,10 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/history" element={<HistoryPage />} />
+            <Route path="/history" element={<HistoryPage />} >
+              <Route index element={<KeywordList />} />
+              <Route path="list" element={<HistoryFound />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </MainContextProvider>

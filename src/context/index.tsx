@@ -18,8 +18,6 @@ interface MainAppContextValue {
     keywords: historyItem[];
   };
   changeHistoryItem: (keyword: string, photoArray: PhotoElementState[]) => void;
-  keyword: string;
-  changeKeyword: (selectedKeyword: string) => void;
 }
 
 const defaultValue = {
@@ -33,8 +31,6 @@ const defaultValue = {
     keywords: [],
   },
   changeHistoryItem: () => {},
-  keyword: "",
-  changeKeyword: () => {},
 };
 
 export const MainAppContext = createContext<MainAppContextValue>(defaultValue);
@@ -50,7 +46,6 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
   }>({
     keywords: [],
   });
-  const [keyword, setKeyword] = useState("");
 
   const changeCurrentPicture = (currentPictureId: string) =>
     setCurrentPictureId(currentPictureId);
@@ -72,7 +67,6 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
       };
     });
   };
-  const changeKeyword = (newKeyword: string) => setKeyword(newKeyword);
 
   const value: MainAppContextValue = {
     currentPictureId,
@@ -83,8 +77,6 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
     changeSearchValue,
     history,
     changeHistoryItem,
-    keyword,
-    changeKeyword,
   };
 
   return (

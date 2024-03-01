@@ -1,0 +1,42 @@
+.historyFoundWrapper {
+  margin-top: 42px;
+}
+
+.goBack {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  text-decoration: none;
+  background-color: green;
+  padding: 8px 12px;
+  border-radius: 42px;
+  width: 120px;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageTitle {
+  font-size: 42px;
+  color: white;
+  margin-top: 32px;
+  font-family: 'Roboto', sans-serif;
+  color: black;
+  font-weight: bold;
+  text-transform: capitalize;
+  background-color: brown;
+  display: inline-block;
+  padding: 12px;
+  margin-bottom: 22px;
+}
+
+.ErrorMessage {
+  margin-top: 21px;
+  color: white;
+}
+
+.photoListWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}

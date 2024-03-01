@@ -80,20 +80,9 @@ const Search = () => {
         currentContext.changeSearchValue(debouncedValue);
       });
     } else {
-      console.log("did not entered search pohoto section");
       currentContext.changeSearchValue(debouncedValue);
     }
   }, [debouncedValue]);
-
-  useEffect(() => {
-    if (currentContext.keyword.length > 0) {
-      setInputValue(currentContext.keyword);
-      currentContext.changeSearchValue(currentContext.keyword);
-      currentContext.changeKeyword('');
-    }
-  }, []);
-
-  console.log(currentContext);
 
   return (
     <div className={`${styles["searchBarWrapper"]}`}>

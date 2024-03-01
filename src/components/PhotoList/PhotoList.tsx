@@ -27,13 +27,11 @@ export const PhotoList = () => {
   useEffect(() => {
     if (currentContext.searchValue === "") {
       const fetchPhotos = async () => {
-        setIsLoading(true);
         const accessKey = import.meta.env.VITE_ACCESS_KEY as string;
         const finalUrl = `${baseApiRoute}/photos/?client_id=${accessKey}&page=${page}&per_page=20&order_by=popular`;
         const result = await fetch(finalUrl);
         const finalResult = await result.json();
         setPhotoList((prevState) => [...prevState, ...finalResult]);
-        setIsLoading(false);
       };
 
       fetchPhotos();
@@ -59,14 +57,6 @@ export const PhotoList = () => {
       setPage((prevState) => prevState + 1);
     }
   }, [isEnd]);
-
-  if (isLoading) {
-    return (
-      <div className={`${styles["loadingImage"]}`}>
-        {isLoading && <div>Loading Images...</div>}
-      </div>
-    );
-  }
 
   if (currentContext.isLoading) {
     return <div className={`${styles["loadingImage"]}`}>Loading Images...</div>;

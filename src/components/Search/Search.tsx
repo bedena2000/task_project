@@ -2,14 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import styles from "./Search.module.css";
 import { MainAppContext } from "../../context";
 import { baseApiRoute } from "../../helpers";
-import { PhotoElement } from "../PhotoItem/PhotoItemTypes";
-import { PictureInterface } from "../Modal/Modal";
 import { PhotoElementState } from "../PhotoList/PhotoList";
-import { defaultBaseSortFn } from "match-sorter";
-
-interface PictureArrayItem extends PictureInterface {
-  id: string;
-}
 
 const Search = () => {
   const currentContext = useContext(MainAppContext);
@@ -42,6 +35,7 @@ const Search = () => {
     // Fetch Search
 
     const searchPhoto = async () => {
+      currentContext.changeIsLoading(true);
       const secretKey = import.meta.env.VITE_ACCESS_KEY as string;
       const finalUrl = `${baseApiRoute}/search/photos/?query=${debouncedValue}&page=1&per_page=10&client_id=${secretKey}`;
 
@@ -77,6 +71,7 @@ const Search = () => {
     ) {
       searchPhoto().then(() => {
         currentContext.changeSearchValue(debouncedValue);
+        currentContext.changeIsLoading(false);
       });
     } else {
       currentContext.changeSearchValue(debouncedValue);

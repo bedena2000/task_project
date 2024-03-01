@@ -18,6 +18,8 @@ interface MainAppContextValue {
     keywords: historyItem[];
   };
   changeHistoryItem: (keyword: string, photoArray: PhotoElementState[]) => void;
+  isLoading: boolean;
+  changeIsLoading: (newLoading: boolean) => void;
 }
 
 const defaultValue = {
@@ -31,6 +33,8 @@ const defaultValue = {
     keywords: [],
   },
   changeHistoryItem: () => {},
+  isLoading: false,
+  changeIsLoading: () => {},
 };
 
 export const MainAppContext = createContext<MainAppContextValue>(defaultValue);
@@ -46,6 +50,7 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
   }>({
     keywords: [],
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const changeCurrentPicture = (currentPictureId: string) =>
     setCurrentPictureId(currentPictureId);
@@ -67,6 +72,7 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
       };
     });
   };
+  const changeLoading = (newLoading: boolean) => setIsLoading(newLoading);
 
   const value: MainAppContextValue = {
     currentPictureId,
@@ -77,6 +83,8 @@ export const MainContextProvider: FC<{ children: React.ReactNode }> = ({
     changeSearchValue,
     history,
     changeHistoryItem,
+    isLoading,
+    changeIsLoading: changeLoading,
   };
 
   return (

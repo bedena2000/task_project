@@ -7,9 +7,7 @@ import { MainAppContext } from "../../context";
 
 export const PhotoItem: FC<PhotoElement> = ({
   alt_description,
-  created_at,
   id,
-  likes,
   picturePath,
 }) => {
   const [isHover, setIsHover] = useState(false);
@@ -20,10 +18,8 @@ export const PhotoItem: FC<PhotoElement> = ({
     currentContext.changeCurrentModal();
   };
 
-  if(!picturePath) {
-    return <div>
-      Loading...
-    </div>
+  if (!picturePath) {
+    return <div>Loading...</div>;
   }
 
   return (

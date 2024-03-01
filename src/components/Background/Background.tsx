@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import { useContext } from "react";
 import styles from "./Background.module.css";
 import { MainAppContext } from "../../context";
 

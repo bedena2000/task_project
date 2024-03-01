@@ -54,7 +54,7 @@ const HistoryFound = () => {
     }
   }, [isEnd]);
 
-  console.log(currentContext);
+  
   return (
     <div className={`${styles["historyFoundWrapper"]}`}>
       {currentContext.isModal && <Background />}

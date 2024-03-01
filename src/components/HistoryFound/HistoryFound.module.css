@@ -40,3 +40,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 22px;
 }
+
+@media screen and (max-width: 626px) {
+  .photoListWrapper {
+    grid-template-columns: 1fr;
+  }
+}

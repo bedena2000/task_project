@@ -10,6 +10,7 @@ export interface PictureInterface {
   created_at: string;
   likes: number;
   views: number;
+  downloads: number;
   links: {
     download: string;
   };
@@ -29,12 +30,14 @@ export const Modal = () => {
         const finalUrl = `${baseApiRoute}/photos/${pictureId}?client_id=${secretKey}`;
         const result = await fetch(finalUrl);
         const photos = (await result.json()) as PictureInterface;
+       
         if (photos) {
           const pictureInfo = {
             alt_description: photos.alt_description,
             created_at: photos.created_at,
             likes: photos.likes,
             views: photos.views,
+            downloads: photos.downloads,
             links: {
               download: photos.links.download,
             },
@@ -46,7 +49,7 @@ export const Modal = () => {
       fetchPhoto();
     }
   }, [pictureId]);
-  console.log(pictureInfo);
+  
   return (
     <div className={`${styles["modalWrapper"]}`}>
       <div className={`${styles["modalClose"]}`}>
@@ -57,19 +60,27 @@ export const Modal = () => {
           {pictureInfo?.alt_description}
         </p>
         <div className={`${styles["pictureWrapper"]}`}>
-          <img alt="currentSelectedImage" src={pictureInfo?.links.download} />
+          {
+            pictureInfo?.links.download ?  <img alt="currentSelectedImage" src={pictureInfo.links.download} /> : <div className={`${styles['loadingImage']}`}>Loading...</div>
+          }
+         
         </div>
         <div className={`${styles["pictureSettings"]}`}>
           <div className={`${styles["pictureViews"]}`}>
-            <p>Views: {pictureInfo?.views}</p>
+            <p>ნახვები: {pictureInfo?.views}</p>
           </div>
+          {pictureInfo?.downloads && (
+            <div className={`${styles["pictureViews"]}`}>
+              <p>გადმოწერები: {pictureInfo?.downloads}</p>
+            </div>
+          )}
           {pictureInfo?.links.download && (
             <a
               download={pictureInfo?.links.download}
               className={`${styles["pictureDownload"]}`}
               href={pictureInfo?.links.download}
             >
-              <p>Download</p>
+              <p>გადმოწერა</p>
               <FaCloudDownloadAlt size={26} color="white" />
             </a>
           )}

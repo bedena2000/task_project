@@ -37,3 +37,9 @@
 .clearButton:hover {
   background-color: cadetblue;
 }
+
+@media screen and (max-width: 745px) {
+  .imageWrapper {
+    grid-template-columns: 1fr;
+  }
+}

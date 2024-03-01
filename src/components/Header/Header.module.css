@@ -18,3 +18,13 @@
   font-size: 24px;
   text-decoration: none;
 }
+
+@media screen and (max-width: 550px) {
+  .header {
+    padding: 20px;
+    border-radius: 26px;
+    background-color: green;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

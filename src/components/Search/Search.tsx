@@ -42,7 +42,6 @@ const Search = () => {
     // Fetch Search
 
     const searchPhoto = async () => {
-      console.log("entered seacrh photo section");
       const secretKey = import.meta.env.VITE_ACCESS_KEY as string;
       const finalUrl = `${baseApiRoute}/search/photos/?query=${debouncedValue}&page=1&per_page=10&client_id=${secretKey}`;
 

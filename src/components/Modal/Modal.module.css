@@ -66,16 +66,14 @@
   font-weight: bold;
 }
 
-.pictureDownload {
+.pictureLikes {
   display: flex;
   align-items: center;
   background-color: rgb(47, 40, 40);
   padding: 8px 22px;
   gap: 16px;
-  cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-  
 }
 
 .loadingImage {
@@ -88,11 +86,7 @@
   align-items: center;
 }
 
-.pictureDownload:hover {
-  background-color: rgb(84, 74, 74);
-}
-
-.pictureDownload > p {
+.pictureLikes > p {
   color: white;
   font-weight: bold;
 }

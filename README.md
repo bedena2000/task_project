@@ -1,6 +1,6 @@
 Image Gallery App
 
-[DEMO][https://images-task-app.netlify.app/]
+[DEMO][https://imagegaleryapptask.vercel.app/]
 
 ![ProjectImage](./src/assets/img/homePage.png)
 

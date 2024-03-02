@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { MainAppContext } from "../../context";
 import { IoCloseCircle } from "react-icons/io5";
 import { baseApiRoute } from "../../helpers";
-import { FaCloudDownloadAlt } from "react-icons/fa";
 
 export interface PictureInterface {
   alt_description: string;
@@ -30,7 +29,7 @@ export const Modal = () => {
         const finalUrl = `${baseApiRoute}/photos/${pictureId}?client_id=${secretKey}`;
         const result = await fetch(finalUrl);
         const photos = (await result.json()) as PictureInterface;
-       
+
         if (photos) {
           const pictureInfo = {
             alt_description: photos.alt_description,
@@ -49,7 +48,7 @@ export const Modal = () => {
       fetchPhoto();
     }
   }, [pictureId]);
-  
+
   return (
     <div className={`${styles["modalWrapper"]}`}>
       <div className={`${styles["modalClose"]}`}>
@@ -60,10 +59,11 @@ export const Modal = () => {
           {pictureInfo?.alt_description}
         </p>
         <div className={`${styles["pictureWrapper"]}`}>
-          {
-            pictureInfo?.links.download ?  <img alt="currentSelectedImage" src={pictureInfo.links.download} /> : <div className={`${styles['loadingImage']}`}>Loading...</div>
-          }
-         
+          {pictureInfo?.links.download ? (
+            <img alt="currentSelectedImage" src={pictureInfo.links.download} />
+          ) : (
+            <div className={`${styles["loadingImage"]}`}>Loading...</div>
+          )}
         </div>
         <div className={`${styles["pictureSettings"]}`}>
           <div className={`${styles["pictureViews"]}`}>
@@ -75,14 +75,9 @@ export const Modal = () => {
             </div>
           )}
           {pictureInfo?.links.download && (
-            <a
-              download={pictureInfo?.links.download}
-              className={`${styles["pictureDownload"]}`}
-              href={pictureInfo?.links.download}
-            >
-              <p>გადმოწერა</p>
-              <FaCloudDownloadAlt size={26} color="white" />
-            </a>
+            <div className={`${styles["pictureLikes"]}`}>
+              <p>მოწონებები: {pictureInfo?.likes}</p>
+            </div>
           )}
         </div>
       </div>

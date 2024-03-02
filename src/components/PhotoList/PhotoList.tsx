@@ -71,7 +71,6 @@ export const PhotoList = () => {
         {currentContext.searchValue === "" ? (
           photoList.map((item) => {
             const uniqueKey = Math.random();
-
             return (
               <PhotoItem
                 key={`${uniqueKey} - ${item.urls.regular}`}
